@@ -23,5 +23,5 @@ cmake --build . --config Release --target install
 if errorlevel 1 exit 1
 
 REM CMAKE: URIPARSER_BUILD_TESTS=ON requires both URIPARSER_BUILD_CHAR=ON and URIPARSER_BUILD_WCHAR_T=ON.
-ctest --output-on-failure -j${CPU_COUNT}
+ctest --output-on-failure
 if errorlevel 1 exit 1

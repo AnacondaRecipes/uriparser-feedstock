@@ -11,10 +11,14 @@ source:
 
 build:
   number: 0
+  ignore_run_exports:
+    - libstdcxx-ng  # [linux]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    # URIPARSER_BUILD_TESTS=on requires CXX compiler
+    - {{ compiler('cxx') }}  # [linux]
     - cmake
     - ninja
     - pkg-config  # [linux]
