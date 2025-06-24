@@ -20,7 +20,7 @@ requirements:
     # URIPARSER_BUILD_TESTS=on requires CXX compiler
     - {{ compiler('cxx') }}  # [linux]
     - cmake
-    - ninja
+    - ninja-base
     - pkg-config  # [linux]
     - gtest
 
