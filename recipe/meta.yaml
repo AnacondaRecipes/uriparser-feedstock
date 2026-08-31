@@ -1,13 +1,17 @@
 {% set name = "uriparser" %}
-{% set version = "0.9.8" %}
+{% set version = "1.0.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/{{ name }}-{{ version }}.tar.gz
-  sha256: d6289387eaf2495e38ed80d709ad673fe04d63fad707badfee96f3d2dabc7c35
+  sha256: 2dadd117a27919db41b84dff1ec7e3347fae8e09cfbb868505f2ff44287b57bf
+  patches:
+    # Backport upstream fix restoring reallocarray support with glibc < 2.29.
+    # Fixed upstream after 1.0.2; remove this patch on the next release.
+    - 0001-src-UriMemory.c-Restore-support-for-stone-age-glibc-.patch
 
 build:
   number: 0
@@ -17,6 +21,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     # URIPARSER_BUILD_TESTS=on requires CXX compiler
     - {{ compiler('cxx') }}  # [linux]
     - cmake
@@ -49,11 +54,11 @@ about:
   home: https://uriparser.github.io
   license: BSD-3-Clause
   license_family: BSD
-  license_file: COPYING
-  summary: 'RFC 3986 compliant URI parsing and handling library written in C89'
+  license_file: COPYING.BSD-3-Clause
+  summary: RFC 3986 compliant URI parsing and handling library written in C99
   description: |
     uriparser is a strictly RFC 3986 compliant URI parsing and handling
-    library written in C89 ("ANSI C"). uriparser is cross-platform, fast,
+    library written in C99. uriparser is cross-platform, fast,
     supports Unicode, and is licensed under the New BSD license.
   doc_url: https://uriparser.github.io
   dev_url: https://github.com/uriparser/uriparser
