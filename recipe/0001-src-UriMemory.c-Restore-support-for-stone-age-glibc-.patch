@@ -1,0 +1,29 @@
+From 072a97c604a05d120686d8ada8eff093a983d75d Mon Sep 17 00:00:00 2001
+From: Sebastian Pipping <sebastian@pipping.org>
+Date: Fri, 5 Jun 2026 15:41:15 +0200
+Subject: [PATCH] src/UriMemory.c: Restore support for stone age glibc <2.29
+
+Reverts part of commit 5519b963b8e7a7842c8295361d96f0458a549f11.
+---
+ src/UriMemory.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/UriMemory.c b/src/UriMemory.c
+index 1c40732..060dd2f 100644
+--- a/src/UriMemory.c
++++ b/src/UriMemory.c
+@@ -50,6 +50,11 @@
+ #    define _DEFAULT_SOURCE 1
+ #  endif
+ 
++// For glibc <2.29
++#  if !defined(_GNU_SOURCE)
++#    define _GNU_SOURCE 1
++#  endif
++
+ // For NetBSD (stdlib.h revision 1.122 of 2020-05-26)
+ #  if defined(__NetBSD__) && !defined(_OPENBSD_SOURCE)
+ #    define _OPENBSD_SOURCE 1
+-- 
+2.55.0
+
